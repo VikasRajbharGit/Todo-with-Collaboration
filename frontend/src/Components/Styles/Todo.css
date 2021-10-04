@@ -1,0 +1,43 @@
+.collabs-card {
+  display: flex;
+  border: 1px solid rgb(221, 220, 220);
+  box-shadow: 2px -4px 24px -5px rgba(255, 51, 245, 0.75);
+  -webkit-box-shadow: 2px -4px 24px -5px rgba(210, 58, 248, 0.75);
+  -moz-box-shadow: 2px -4px 24px -5px rgba(229, 36, 255, 0.75);
+  padding: 10px;
+  margin-bottom: 20px;
+  border: none;
+}
+
+.todo-box {
+  height: 100px;
+}
+
+.avatar {
+  height: 40px;
+  width: 40px;
+  border-radius: 20px;
+  background-color: red;
+  margin-right: 15px;
+  color: white;
+  font-size: 1.4rem;
+}
+
+.vertical-center {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+input {
+  width: 50vw;
+}
+
+@media (max-width: 500px) {
+  input {
+    width: 80vw;
+  }
+  .collabs-card {
+    width: 80vw;
+  }
+}

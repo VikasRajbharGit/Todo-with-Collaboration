@@ -1,0 +1,12 @@
+.nav {
+  z-index: 1;
+  width: 100vw;
+  background-color: white;
+  border: 1px solid #b0a6b5;
+  position: fixed;
+  bottom: 0;
+  display: flex;
+  justify-content: space-evenly;
+  background-color: rgb(27, 22, 31);
+  border: none;
+}
