@@ -11,9 +11,7 @@ function Nav() {
   const history = useHistory();
   const location = useLocation();
 
-  console.log(localStorage.getItem("token").token);
   useEffect(() => {
-    console.log(auth.session > new Date().getTime());
     if (
       auth.isAuthenticated == true &&
       auth.session > new Date() &&
@@ -36,7 +34,7 @@ function Nav() {
 
       <h4
         onClick={() => {
-          history.push("/add-post");
+          history.push("/add-todo");
         }}
       >
         Add Todo

@@ -1,6 +1,8 @@
 import React, { useEffect } from "react";
 import gql from "graphql-tag";
 import { useQuery } from "@apollo/client";
+import { useSelector } from "react-redux";
+import { useHistory } from "react-router";
 
 import Card from "./Card";
 import "./Styles/Home.css";
@@ -9,10 +11,17 @@ import { Link } from "react-router-dom";
 
 function Home() {
   const { loading, data, refetch } = useQuery(FETCH_POSTS_QUERY);
-  console.log(data);
+
   useEffect(async () => {
     await refetch();
   }, []);
+  // const isAuth = useSelector((state) => state.auth.isAuthenticated);
+  // const history = useHistory();
+  // useEffect(() => {
+  //   if (!isAuth) {
+  //     history.push("/login");
+  //   }
+  // }, []);
 
   return (
     <div className="home">
@@ -25,8 +34,9 @@ function Home() {
               <Link
                 style={{ textDecoration: "none", color: "black" }}
                 to={`/todo/${todo.id}`}
+                key={todo.id}
               >
-                <Card key={todo.id} todo={todo} />
+                <Card todo={todo} />
               </Link>
             );
           })}

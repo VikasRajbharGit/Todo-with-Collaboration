@@ -9,17 +9,6 @@ import "./Styles/Todo.css";
 import "./Styles/Home.css";
 
 function Todo() {
-  const UPDATE_TODO = gql`
-    mutation ($updateTodoTodoId: String!, $updateTodoBody: String!) {
-      updateTodo(todoId: $updateTodoTodoId, body: $updateTodoBody) {
-        body
-        collabUsers
-        username
-        createdAt
-        id
-      }
-    }
-  `;
   const [updateTodo, { updateData, updating, error }] =
     useMutation(UPDATE_TODO);
   const [addCollaborator, { addCollabData, addingCollab, collabError }] =
@@ -39,7 +28,12 @@ function Todo() {
     },
   });
 
-  console.log(data);
+  const isAuth = useSelector((state) => state.auth.isAuthenticated);
+  useEffect(() => {
+    if (!isAuth) {
+      history.push("/login");
+    }
+  }, []);
 
   return (
     <div className="home ">
@@ -71,24 +65,34 @@ function Todo() {
             />
           </div>
           {data.getTodo.username === auth.username && (
-            <div
-              onClick={async () => {
-                try {
-                  await deleteTodo({
-                    variables: {
-                      deleteTodoTodoId: id,
-                    },
-                  });
-                  history.push("/");
-                } catch (e) {
-                  console.log(e);
-                }
-              }}
-            >
-              Delete Todo
+            <div style={{ display: "flex", justifyContent: "center" }}>
+              <input
+                type="submit"
+                value="Delete Todo"
+                className="button"
+                style={{ backgroundColor: "red" }}
+                onClick={async () => {
+                  try {
+                    await deleteTodo({
+                      variables: {
+                        deleteTodoTodoId: id,
+                      },
+                    });
+                    history.push("/");
+                  } catch (e) {
+                    console.log(e);
+                  }
+                }}
+              />
             </div>
           )}
-          <div style={{ display: "flex", justifyContent: "center" }}>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              marginTop: "50px",
+            }}
+          >
             <input
               type="text"
               value={collaborator}
@@ -116,7 +120,7 @@ function Todo() {
                   setCollaborator("");
                 } catch (e) {
                   setCollaboratorError(e.message);
-                  console.log(e.message);
+                  // console.log(e.message);
                 }
 
                 // console.log(refetch());
@@ -128,9 +132,10 @@ function Todo() {
       {!loading && (
         <div className="side-panel">
           <div className="panel">
+            <h3>Collaborators list</h3>
             {data.getTodo.collabUsers.map((user) => {
               return (
-                <div className="collabs-card">
+                <div className="collabs-card" key={user}>
                   <div className="avatar">{user.slice(0, 1)}</div>
                   <div className="vertical-center">{user}</div>
                 </div>
@@ -151,6 +156,18 @@ const FETCH_TODO_QUERY = gql`
       username
       createdAt
       collabUsers
+    }
+  }
+`;
+
+const UPDATE_TODO = gql`
+  mutation ($updateTodoTodoId: String!, $updateTodoBody: String!) {
+    updateTodo(todoId: $updateTodoTodoId, body: $updateTodoBody) {
+      body
+      collabUsers
+      username
+      createdAt
+      id
     }
   }
 `;

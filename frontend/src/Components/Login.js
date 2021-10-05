@@ -51,12 +51,16 @@ function Login() {
             type="button"
             className="button"
             onClick={() => {
-              history.push("./register");
+              history.push("/register");
             }}
           >
             Sign Up
           </button>
         </form>
+        To test this app either sign up with two accounts <br /> OR use
+        <br />
+        User: todoUser , Password:123456 <br />
+        User: collaborator1 , Paswords: 123456
       </div>
     </div>
   );

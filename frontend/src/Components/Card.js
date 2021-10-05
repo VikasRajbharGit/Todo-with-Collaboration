@@ -15,22 +15,22 @@ function Card(props) {
     props.todo.collabUsers.slice(0, 2)
   );
   // const [collaborator, setCollaborator] = useState("");
-  console.log(props.todo);
+
   return (
     <div className="card">
       <div className="caption">
         <p>
-          <b>{props.todo.username}</b> &nbsp;
+          {/* <b>{props.todo.username}</b> &nbsp; */}
           {props.todo.body}
         </p>
-
+        {/* Collaborators
         {collaborators.map((collaborator) => {
           return (
             <p key={collaborator}>
               <b>{collaborator}</b>
             </p>
           );
-        })}
+        })} */}
       </div>
       {/* {props.todo.username === auth.username && (
         <div
